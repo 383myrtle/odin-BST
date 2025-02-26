@@ -34,6 +34,26 @@ export class Tree {
     return arr;
   }
 
+  insert(value) {
+    this.insertRecursive(this.root, value);
+  }
+
+  insertRecursive(node, val) {
+    if (val > node.data) {
+      if (!node.right) {
+        node.right = new Node(val);
+        return;
+      }
+      this.insertRecursive(node.right, val);
+    } else {
+      if (!node.left) {
+        node.left = new Node(val);
+        return;
+      }
+      this.insertRecursive(node.left, val);
+    }
+  }
+
   removeDuplicates(arr) {
     const copy = [];
     arr.forEach((element) => {
