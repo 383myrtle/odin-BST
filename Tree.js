@@ -133,6 +133,34 @@ export class Tree {
     return height - 1;
   }
 
+  depth(node) {
+    const queue = [];
+    queue.push(this.root);
+    queue.push(null);
+    let depth = 0;
+
+    while (queue.length > 0) {
+      let current = queue.shift();
+      if (current === null) {
+        depth++;
+        if (queue.length > 0) {
+          queue.push(null);
+        }
+        continue;
+      }
+      if (current.data === node.data){
+        return depth;
+      }
+      if (current.left) {
+        queue.push(current.left);
+      }
+      if (current.right) {
+        queue.push(current.right);
+      }
+    }
+  }
+
+
   levelOrder(callback) {
     if (!callback) {
       throw new Error("Error: please provide a callback function.");
