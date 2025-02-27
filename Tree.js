@@ -45,13 +45,68 @@ export class Tree {
         return;
       }
       this.insertRecursive(node.right, val);
-    } else {
+    } else if (val < node.data) {
       if (!node.left) {
         node.left = new Node(val);
         return;
       }
       this.insertRecursive(node.left, val);
     }
+  }
+
+  deleteItem(value) {
+    let current = this.root;
+    let prev = null;
+    let isLeft = false;
+    while (current) {
+      if (value === current.data) {
+        if (!current.right && !current.left) {
+          // No children
+          console.log("No children of node "+ current.data);
+          if (isLeft) {
+            prev.left = null;
+          } else {
+            prev.right = null;
+          }
+        } else if (!(current.right && current.left)) {
+          // One child
+          console.log("One child of node "+ current.data);
+          const child = current.left ? current.left : current.right;
+          if (isLeft) {
+            prev.left = child;
+          } else {
+            prev.right = child;
+          }
+        } else {
+          // Two children
+          console.log("Two children of node "+ current.data);
+          const nextSmallest = this.findNextSmallest(current);
+          console.log(nextSmallest);
+          this.deleteItem(nextSmallest.data);
+          current.data = nextSmallest.data;
+        }
+        return;
+      } else if (value > current.data) {
+        prev = current;
+        current = current.right;
+        isLeft = false;
+      } else {
+        prev = current;
+        current = current.left;
+        isLeft = true;
+      }
+    }
+  }
+
+  findNextSmallest(root) {
+    let current = root.right;
+    if (!current) {
+      return null;
+    }
+    while (current.left) {
+      current = current.left;
+    }
+    return current;
   }
 
   removeDuplicates(arr) {
