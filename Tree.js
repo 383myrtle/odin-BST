@@ -108,6 +108,31 @@ export class Tree {
     return null;
   }
 
+  height(node) {
+    const queue = [];
+    queue.push(node);
+    queue.push(null);
+    let height = 0;
+
+    while (queue.length > 0) {
+      let current = queue.shift();
+      if (current === null) {
+        height++;
+        if (queue.length > 0) {
+          queue.push(null);
+        }
+        continue;
+      }
+      if (current.left) {
+        queue.push(current.left);
+      }
+      if (current.right) {
+        queue.push(current.right);
+      }
+    }
+    return height - 1;
+  }
+
   levelOrder(callback) {
     if (!callback) {
       throw new Error("Error: please provide a callback function.");
