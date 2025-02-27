@@ -94,6 +94,20 @@ export class Tree {
     }
   }
 
+  find(value) {
+    let current = this.root;
+    while (current) {
+      if (current.data === value) {
+        return current;
+      } else if (value > current.data) {
+        current = current.right;
+      } else {
+        current = current.left;
+      }
+    }
+    return null;
+  }
+
   findNextSmallest(root) {
     let current = root.right;
     if (!current) {
