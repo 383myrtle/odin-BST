@@ -62,7 +62,6 @@ export class Tree {
       if (value === current.data) {
         if (!current.right && !current.left) {
           // No children
-          console.log("No children of node "+ current.data);
           if (isLeft) {
             prev.left = null;
           } else {
@@ -70,7 +69,6 @@ export class Tree {
           }
         } else if (!(current.right && current.left)) {
           // One child
-          console.log("One child of node "+ current.data);
           const child = current.left ? current.left : current.right;
           if (isLeft) {
             prev.left = child;
@@ -79,9 +77,7 @@ export class Tree {
           }
         } else {
           // Two children
-          console.log("Two children of node "+ current.data);
           const nextSmallest = this.findNextSmallest(current);
-          console.log(nextSmallest);
           this.deleteItem(nextSmallest.data);
           current.data = nextSmallest.data;
         }
