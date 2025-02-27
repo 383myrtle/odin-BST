@@ -108,6 +108,24 @@ export class Tree {
     return null;
   }
 
+  levelOrder(callback) {
+    if (!callback){
+        throw new Error("Error: please provide a callback function.");
+    }
+    const queue = [];
+    queue.push(this.root);
+    while (queue.length > 0) {
+      let current = queue.shift();
+      callback(current);
+      if (current.left) {
+        queue.push(current.left);
+      }
+      if (current.right) {
+        queue.push(current.right);
+      }
+    }
+  }
+  
   findNextSmallest(root) {
     let current = root.right;
     if (!current) {
