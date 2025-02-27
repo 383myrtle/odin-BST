@@ -109,8 +109,8 @@ export class Tree {
   }
 
   levelOrder(callback) {
-    if (!callback){
-        throw new Error("Error: please provide a callback function.");
+    if (!callback) {
+      throw new Error("Error: please provide a callback function.");
     }
     const queue = [];
     queue.push(this.root);
@@ -125,7 +125,61 @@ export class Tree {
       }
     }
   }
-  
+
+  inOrder(callback) {
+    if (!callback) {
+      throw new Error("Error: please provide a callback function.");
+    }
+
+    this.inOrderRecursive(this.root, callback);
+  }
+
+  inOrderRecursive(root, callback) {
+    if (root.left) {
+      this.inOrderRecursive(root.left, callback);
+    }
+    callback(root);
+    if (root.right) {
+      this.inOrderRecursive(root.right, callback);
+    }
+  }
+
+  preOrder(callback) {
+    if (!callback) {
+      throw new Error("Error: please provide a callback function.");
+    }
+
+    this.preOrderRecursive(this.root, callback);
+  }
+
+  preOrderRecursive(root, callback) {
+    callback(root);
+    if (root.left) {
+      this.preOrderRecursive(root.left, callback);
+    }
+    if (root.right) {
+      this.preOrderRecursive(root.right, callback);
+    }
+  }
+
+  postOrder(callback) {
+    if (!callback) {
+      throw new Error("Error: please provide a callback function.");
+    }
+
+    this.postOrderRecursive(this.root, callback);
+  }
+
+  postOrderRecursive(root, callback) {
+    if (root.left) {
+      this.postOrderRecursive(root.left, callback);
+    }
+    if (root.right) {
+      this.postOrderRecursive(root.right, callback);
+    }
+    callback(root);
+  }
+
   findNextSmallest(root) {
     let current = root.right;
     if (!current) {
