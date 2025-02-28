@@ -172,22 +172,30 @@ export class Tree {
     }
   }
 
+  traverse(root, callback, order) {
+    if (order === "pre") {
+      callback(root);
+    }
+    if (root.left) {
+      this.traverse(root.left, callback, order);
+    }
+    if (order === "in") {
+      callback(root);
+    }
+    if (root.right) {
+      this.traverse(root.right, callback, order);
+    }
+    if (order === "post") {
+      callback(root);
+    }
+  }
+
   inOrder(callback) {
     if (!callback) {
       throw new Error("Error: please provide a callback function.");
     }
 
-    this.inOrderRecursive(this.root, callback);
-  }
-
-  inOrderRecursive(root, callback) {
-    if (root.left) {
-      this.inOrderRecursive(root.left, callback);
-    }
-    callback(root);
-    if (root.right) {
-      this.inOrderRecursive(root.right, callback);
-    }
+    this.traverse(this.root, callback, "in");
   }
 
   preOrder(callback) {
@@ -195,17 +203,7 @@ export class Tree {
       throw new Error("Error: please provide a callback function.");
     }
 
-    this.preOrderRecursive(this.root, callback);
-  }
-
-  preOrderRecursive(root, callback) {
-    callback(root);
-    if (root.left) {
-      this.preOrderRecursive(root.left, callback);
-    }
-    if (root.right) {
-      this.preOrderRecursive(root.right, callback);
-    }
+    this.traverse(this.root, callback, "pre");
   }
 
   postOrder(callback) {
@@ -213,17 +211,7 @@ export class Tree {
       throw new Error("Error: please provide a callback function.");
     }
 
-    this.postOrderRecursive(this.root, callback);
-  }
-
-  postOrderRecursive(root, callback) {
-    if (root.left) {
-      this.postOrderRecursive(root.left, callback);
-    }
-    if (root.right) {
-      this.postOrderRecursive(root.right, callback);
-    }
-    callback(root);
+    this.traverse(this.root, callback, "post");
   }
 
   findNextSmallest(root) {
