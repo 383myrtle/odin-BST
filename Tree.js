@@ -107,55 +107,22 @@ export class Tree {
   }
 
   height(node) {
-    const queue = [];
-    queue.push(node);
-    queue.push(null);
-    let height = 0;
-
-    while (queue.length > 0) {
-      let current = queue.shift();
-      if (current === null) {
-        height++;
-        if (queue.length > 0) {
-          queue.push(null);
-        }
-        continue;
-      }
-      if (current.left) {
-        queue.push(current.left);
-      }
-      if (current.right) {
-        queue.push(current.right);
-      }
+    if (!node) {
+      return -1;
     }
-    return height - 1;
+    return 1 + Math.max(this.height(node.left), this.height(node.right));
   }
 
-  depth(node) {
-    const queue = [];
-    queue.push(this.root);
-    queue.push(null);
-    let depth = 0;
-
-    while (queue.length > 0) {
-      let current = queue.shift();
-      if (current === null) {
-        depth++;
-        if (queue.length > 0) {
-          queue.push(null);
-        }
-        continue;
-      }
-      if (current.data === node.data) {
-        return depth;
-      }
-      if (current.left) {
-        queue.push(current.left);
-      }
-      if (current.right) {
-        queue.push(current.right);
-      }
+  depth(node, current = this.root, depth = 0) {
+    if (!current) {
+      return -1;
     }
+    if (current.data === node.data) {
+      return depth;
+    }
+    return node.data < current.data
+      ? this.depth(node, current.left, depth + 1)
+      : this.depth(node, current.right, depth + 1);
   }
 
   isBalancedRec(root) {
