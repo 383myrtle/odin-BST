@@ -177,8 +177,12 @@ export class Tree {
     return Math.max(heightLeft, heightRight) + 1;
   }
 
-  isBalanced(root){
-    return this.isBalancedRec(root) > 0;
+  isBalanced(){
+    return this.isBalancedRec(this.root) > 0;
+  }
+
+  rebalance(){
+
   }
 
   levelOrder(callback) {

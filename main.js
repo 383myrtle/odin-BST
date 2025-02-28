@@ -88,7 +88,7 @@ function testDepth() {
 }
 
 function testBalance() {
-  if (tree.isBalanced(tree.root)) {
+  if (tree.isBalanced()) {
     console.log("Tree is balanced.");
   } else {
     console.log("Tree is not balanced.");
