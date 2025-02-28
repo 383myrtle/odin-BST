@@ -148,7 +148,7 @@ export class Tree {
         }
         continue;
       }
-      if (current.data === node.data){
+      if (current.data === node.data) {
         return depth;
       }
       if (current.left) {
@@ -160,6 +160,26 @@ export class Tree {
     }
   }
 
+  isBalancedRec(root) {
+    if (root === null) {
+      return 0;
+    }
+
+    const heightLeft = this.isBalancedRec(root.left);
+    const heightRight = this.isBalancedRec(root.right);
+    if (
+      heightLeft === -1 ||
+      heightRight === -1 ||
+      Math.abs(heightLeft - heightRight) > 1
+    ) {
+      return -1;
+    }
+    return Math.max(heightLeft, heightRight) + 1;
+  }
+
+  isBalanced(root){
+    return this.isBalancedRec(root) > 0;
+  }
 
   levelOrder(callback) {
     if (!callback) {

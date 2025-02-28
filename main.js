@@ -8,7 +8,7 @@ console.log(inputArr);
 const tree = new Tree(inputArr);
 
 prettyPrint(tree.root);
-
+testBalance();
 // Run tests
 printLevelOrder();
 printInOrder();
@@ -22,6 +22,12 @@ testDelete();
 console.log("/*** Testing height & depth ***/");
 testHeight();
 testDepth();
+
+tree.insert(101);
+tree.insert(102);
+tree.insert(103);
+prettyPrint(tree.root);
+testBalance();
 
 function printPostOrder() {
   let str = "";
@@ -56,7 +62,7 @@ function printLevelOrder() {
 }
 
 function testDelete() {
-  const randIndex = Math.round(inputArr.length * Math.random());
+  const randIndex = Math.round((inputArr.length - 1) * Math.random());
   const randValue = inputArr[randIndex];
   tree.deleteItem(randValue);
   console.log("Deleting item " + randValue + "...");
@@ -79,6 +85,14 @@ function testDepth() {
   const randValue = inputArr[randIndex];
   const randNode = tree.find(randValue);
   console.log(`Depth of element ${randValue} is ${tree.depth(randNode)}`);
+}
+
+function testBalance() {
+  if (tree.isBalanced(tree.root)) {
+    console.log("Tree is balanced.");
+  } else {
+    console.log("Tree is not balanced.");
+  }
 }
 
 function prettyPrint(node, prefix = "", isLeft = true) {
