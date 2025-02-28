@@ -23,9 +23,14 @@ console.log("/*** Testing height & depth ***/");
 testHeight();
 testDepth();
 
+console.log("/*** Testing insertion & rebalancing ***/");
 tree.insert(101);
 tree.insert(102);
 tree.insert(103);
+prettyPrint(tree.root);
+testBalance();
+console.log("Rebalancing tree...");
+tree.rebalance();
 prettyPrint(tree.root);
 testBalance();
 
