@@ -29,9 +29,7 @@ export class Tree {
   }
 
   reformat(arr) {
-    arr = this.removeDuplicates(arr);
-    arr.sort(this.sortAscending);
-    return arr;
+    return [...new Set(arr)].sort((a, b) => a - b);
   }
 
   insert(value) {
@@ -177,12 +175,16 @@ export class Tree {
     return Math.max(heightLeft, heightRight) + 1;
   }
 
-  isBalanced(){
+  isBalanced() {
     return this.isBalancedRec(this.root) > 0;
   }
 
-  rebalance(){
-
+  rebalance() {
+    const arr = [];
+    this.inOrder((node) => {
+      arr.push(node.data);
+    });
+    this.root = this.buildTree(arr);
   }
 
   levelOrder(callback) {
@@ -266,19 +268,5 @@ export class Tree {
       current = current.left;
     }
     return current;
-  }
-
-  removeDuplicates(arr) {
-    const copy = [];
-    arr.forEach((element) => {
-      if (!copy.includes(element)) {
-        copy.push(element);
-      }
-    });
-    return copy;
-  }
-
-  sortAscending(a, b) {
-    return a - b;
   }
 }
